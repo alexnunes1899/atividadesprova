@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() {
+    double nota, media = 0;
+    int cont = 0;
+
+    while (cont < 2) {
+        // Lê a nota do aluno
+        scanf("%lf", &nota);
+        
+        // Verifica se a nota está no intervalo válido [0, 10]
+        if (nota >= 0.0 && nota <= 10.0) {
+            media += nota;  // Acumula a soma das notas válidas
+            cont++;
+        } else {
+            // Imprime mensagem de nota inválida
+            printf("nota invalida\n");
+        }
+    }
+
+    // Calcula a média das duas notas válidas
+    media = media / 2.0;
+    
+    // Imprime a média com duas casas decimais
+    printf("media = %.2lf\n", media);
+
+    return 0;
+}
