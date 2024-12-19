@@ -14,6 +14,7 @@ int main()
 
     printf("Digite um texto: ");
     scanf("%100[^\n]s",s);
+    fflush(stdin);
     i = strlen(s);
 
     printf("tamanho do texto: %d\n",i);
