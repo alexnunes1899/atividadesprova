@@ -2,9 +2,8 @@
 #include <stdbool.h>
 #include <locale.h>
 
-#define MAX 100  // Limite m·ximo de linhas e colunas
+#define MAX 100
 
-// FunÁ„o para verificar se um n˙mero j· foi contabilizado
 bool jaContabilizado(int numero, int *array, int tamanho) {
     for (int i = 0; i < tamanho; i++) {
         if (array[i] == numero) {
@@ -15,44 +14,54 @@ bool jaContabilizado(int numero, int *array, int tamanho) {
 }
 
 int main() {
-    setlocale(LC_ALL, ""); // Permite exibir acentos da lÌngua portuguesa
+    setlocale(LC_ALL, "");
 
     int M, N;
     int matriz[MAX][MAX];
     int linhaEscolhida, colunaEscolhida;
-    int valoresUnicos[MAX * 2]; // Armazena valores ˙nicos
+    int valoresUnicos[MAX * 2];
     int contadorUnicos = 0;
 
-    printf("Digite o n˙mero de linhas (M): ");
+    printf("Digite o n√∫mero de linhas (M): ");
     scanf("%d", &M);
 
-    printf("Digite o n˙mero de colunas (N): ");
+    if (M <= 0 || M > MAX) {
+        printf("N√∫mero de linhas inv√°lido!\n");
+        return 1;
+    }
+
+    printf("Digite o n√∫mero de colunas (N): ");
     scanf("%d", &N);
 
-    // Entrada da matriz
+    if (N <= 0 || N > MAX) {
+        printf("N√∫mero de colunas inv√°lido!\n");
+        return 1;
+    }
+
     printf("Digite os elementos da matriz (%d x %d):\n", M, N);
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            scanf("%d", &matriz[i][j]);
+            if (scanf("%d", &matriz[i][j]) != 1) {
+                printf("Entrada inv√°lida!\n");
+                return 1;
+            }
         }
     }
 
-    // Escolha da linha e coluna
-    printf("Digite o Ìndice da linha para somar (0 a %d): ", M - 1);
-    scanf("%d", &linhaEscolhida);
+    printf("Digite o √≠ndice da linha para somar (0 a %d): ", M - 1);
+    if (scanf("%d", &linhaEscolhida) != 1 || linhaEscolhida < 0 || linhaEscolhida >= M) {
+        printf("√çndice da linha inv√°lido!\n");
+        return 1;
+    }
 
-    printf("Digite o Ìndice da coluna para somar (0 a %d): ", N - 1);
-    scanf("%d", &colunaEscolhida);
-
-    // ValidaÁ„o dos Ìndices
-    if (linhaEscolhida < 0 || linhaEscolhida >= M || colunaEscolhida < 0 || colunaEscolhida >= N) {
-        printf("Õndices de linha ou coluna inv·lidos!\n");
+    printf("Digite o √≠ndice da coluna para somar (0 a %d): ", N - 1);
+    if (scanf("%d", &colunaEscolhida) != 1 || colunaEscolhida < 0 || colunaEscolhida >= N) {
+        printf("√çndice da coluna inv√°lido!\n");
         return 1;
     }
 
     int soma = 0;
 
-    // Soma os elementos da linha escolhida
     for (int j = 0; j < N; j++) {
         if (!jaContabilizado(matriz[linhaEscolhida][j], valoresUnicos, contadorUnicos)) {
             valoresUnicos[contadorUnicos++] = matriz[linhaEscolhida][j];
@@ -60,16 +69,14 @@ int main() {
         }
     }
 
-    // Soma os elementos da coluna escolhida
     for (int i = 0; i < M; i++) {
-        if (i != linhaEscolhida && // Evita repetir o elemento que est· na interseÁ„o
-            !jaContabilizado(matriz[i][colunaEscolhida], valoresUnicos, contadorUnicos)) {
+        if (i != linhaEscolhida && !jaContabilizado(matriz[i][colunaEscolhida], valoresUnicos, contadorUnicos)) {
             valoresUnicos[contadorUnicos++] = matriz[i][colunaEscolhida];
             soma += matriz[i][colunaEscolhida];
         }
     }
 
-    printf("A soma dos elementos ˙nicos da linha %d e coluna %d È: %d\n", linhaEscolhida, colunaEscolhida, soma);
+    printf("A soma dos elementos √∫nicos da linha %d e coluna %d √©: %d\n", linhaEscolhida, colunaEscolhida, soma);
 
     return 0;
 }
