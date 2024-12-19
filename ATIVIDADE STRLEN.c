@@ -13,16 +13,14 @@ int main()
     int i;
 
     printf("Digite um texto: ");
-    gets(s);
+    scanf("%100[^\n]s",s);
     i = strlen(s);
 
     printf("tamanho do texto: %d\n",i);
 
-    printf("impress„o de posiÁ„o a posiÁ„o: \n");
+    printf("impress√£o de posi√ß√£o a posi√ß√£o: \n");
     for(int i = 0; i<strlen(s);i++){
         printf("%c",s[i]);
     }
-
-
     return 0;
 }
