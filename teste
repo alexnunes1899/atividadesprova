@@ -1,0 +1,73 @@
+#include <stdio.h>
+
+#define MAX 100
+
+void zerarLinhaEColuna(int matriz[MAX][MAX], int linhas, int colunas) {
+    int i, j;
+    int linhaZerada[MAX] = {0};
+    int colunaZerada[MAX] = {0};
+
+    // Identifica quais linhas e colunas devem ser zeradas
+    for (i = 0; i < linhas; i++) {
+        for (j = 0; j < colunas; j++) {
+            if (matriz[i][j] == 0) {
+                linhaZerada[i] = 1;
+                colunaZerada[j] = 1;
+            }
+        }
+    }
+
+    // Zera as linhas identificadas
+    for (i = 0; i < linhas; i++) {
+        if (linhaZerada[i]) {
+            for (j = 0; j < colunas; j++) {
+                matriz[i][j] = 0;
+            }
+        }
+    }
+
+    // Zera as colunas identificadas
+    for (j = 0; j < colunas; j++) {
+        if (colunaZerada[j]) {
+            for (i = 0; i < linhas; i++) {
+                matriz[i][j] = 0;
+            }
+        }
+    }
+}
+
+void exibirMatriz(int matriz[MAX][MAX], int linhas, int colunas) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int matriz[MAX][MAX];
+    int linhas, colunas;
+
+    // Entrada da matriz
+    printf("Digite o número de linhas e colunas da matriz: ");
+    scanf("%d %d", &linhas, &colunas);
+
+    printf("Digite os elementos da matriz:\n");
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+
+    printf("\nMatriz original:\n");
+    exibirMatriz(matriz, linhas, colunas);
+
+    // Processa a matriz
+    zerarLinhaEColuna(matriz, linhas, colunas);
+
+    printf("\nMatriz modificada:\n");
+    exibirMatriz(matriz, linhas, colunas);
+
+    return 0;
+}
